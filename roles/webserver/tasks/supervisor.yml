@@ -1,0 +1,19 @@
+---
+- name: Install supervisor 
+  apt:
+    name: supervisor
+    state: present
+  become_user: root
+  become_method: sudo
+  tags: supervisor
+
+- name: copy supervisor config file
+  template:
+    src: ckan-uwsgi.conf.j2
+    dest: /etc/supervisor/conf.d/ckan-uwsgi.conf
+  notify: 
+    - restart supervisor
+
+    
+
+    

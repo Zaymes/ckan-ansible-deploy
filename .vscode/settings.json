@@ -1,0 +1,9 @@
+{
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": [
+            "file:///Users/sagarg/Documents/Deployment/roles/common/tasks/main.yml",
+            "file:///Users/sagarg/Documents/Deployment/roles/ckan/tasks/installckan.yml"
+        ]
+    },
+    "ansible.python.interpreterPath": "/Users/sagarg/.pyenv/versions/main/bin/python"
+}

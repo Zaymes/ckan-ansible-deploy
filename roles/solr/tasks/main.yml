@@ -1,0 +1,39 @@
+---
+- name: Install Java
+  apt:
+    name: openjdk-11-jdk
+    state: present
+
+- name: Download Solr
+  get_url:
+    url: "https://archive.apache.org/dist/lucene/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz"
+    dest: /tmp/solr-{{ solr_version }}.tgz
+
+- name: Extract Solr
+  unarchive:
+    src: /tmp/solr-{{ solr_version }}.tgz
+    dest: /opt/
+    remote_src: yes
+
+- name: Start Solr service
+  command: "/opt/solr-{{ solr_version }}/bin/solr start -p 8983 -force"
+  register: solr_status
+  ignore_errors: true
+
+- name: Create CKAN solr core
+  shell: "/opt/solr-{{ solr_version }}/bin/solr create_core -c {{ ckan_solr_core_name }} -force"
+  args:
+    creates: "/opt/solr-{{ solr_version }}/server/solr/{{ ckan_solr_core_name }}"
+
+- name: Copy CKAN solr schema
+  copy:
+    remote_src: yes
+    src: /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml
+    dest: /opt/solr-{{ solr_version }}/server/solr/{{ ckan_solr_core_name }}/conf/managed-schema
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart Solr
+  command: "/opt/solr-{{ solr_version }}/bin/solr {{ 'restart' if solr_status.rc == 0 else 'start' }} -force"
+  ignore_errors: true

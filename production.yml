@@ -1,0 +1,20 @@
+- name: Deploy CKAN on production server
+  hosts: ckan_servers
+  become: yes
+  roles: 
+    - common
+    - database   
+    - ckan
+    - solr
+    - redis
+    - webserver
+
+  
+    
+
+
+
+
+  
+
+

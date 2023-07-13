@@ -1,0 +1,17 @@
+---
+- name: Install uWSGI
+  pip:
+    name: uwsgi
+    virtualenv: /usr/lib/ckan/default
+    virtualenv_command: pyvenv
+    
+- name: Copy  wsgi.py to configuration folder
+  copy:
+    remote_src: yes
+    src: /usr/lib/ckan/default/src/ckan/wsgi.py 
+    dest: /usr/lib/ckan/default/wsgi.py
+
+- name: Copy ckan-uwsgi.ini to configuration folder
+  template:
+    src: ckan-uwsgi.ini.j2
+    dest: /usr/lib/ckan/default/ckan-uwsgi.ini

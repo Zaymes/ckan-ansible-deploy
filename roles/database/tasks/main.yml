@@ -1,0 +1,35 @@
+---
+
+- name: Install PostgreSQL
+  apt:
+    name: ['postgresql', 'postgresql-contrib', 'postgis', 'python3-psycopg2']
+    state: present
+
+
+- name: Restart postgres
+  service:
+    name: postgresql
+    state: restarted
+
+- name: Create PostgreSQL user
+  become_user: postgres
+  postgresql_user:
+    name: "{{ ckan_database.dbuser }}"
+    password: "{{ ckan_database.dbpassword }}"
+    encrypted: yes
+    state: present
+
+- name: Create PostgreSQL database
+  postgresql_db:
+    name: "{{ ckan_database.dbname }}"
+    owner: "{{ ckan_database.dbuser }}"
+    encoding: UTF-8
+    state: present
+
+- name: Grant db user access to db
+  postgresql_privs:
+    type: database
+    database: "{{ ckan_database.dbname }}"
+    roles: "{{ ckan_database.dbuser }}"
+    grant_option: false
+    privs: all

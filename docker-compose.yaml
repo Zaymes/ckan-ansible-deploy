@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  ckan-server:
+    build:
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8002:5000"
+      - "8081:22"
+      - "8984:8983"
+
+
+
+      
+      
+   

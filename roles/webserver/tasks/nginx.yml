@@ -1,0 +1,25 @@
+---
+
+- name: CKAN nginx configuration
+  apt:
+    name: nginx
+    state: present
+  
+- name: Copy nginx config file
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/ckan
+
+- name: Create a symbolic link to the nginx config file
+  file:
+    src: /etc/nginx/sites-available/ckan
+    dest: /etc/nginx/sites-enabled/ckan
+    state: link
+    force: yes
+  notify: 
+    - restart nginx
+
+
+
+
+

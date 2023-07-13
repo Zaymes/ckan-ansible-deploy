@@ -1,0 +1,30 @@
+
+---
+
+- name: Copy CKAN config file
+  template:
+    src: ckan.ini.j2
+    dest: /usr/lib/ckan/default/ckan.ini
+
+- name: Create a symoblic link to the ckan who ini file
+  file:
+    src: /usr/lib/ckan/default/src/ckan/who.ini 
+    dest: /usr/lib/ckan/default/who.ini
+    state: link
+    force: yes
+
+- name: Initialize CKAN database
+  command: /usr/lib/ckan/default/bin/ckan --config=/usr/lib/ckan/default/ckan.ini db init
+
+- name: Create webassets storage folder
+  file:
+    path: /usr/lib/ckan/webassets
+    state: directory
+    mode: '0777'
+
+- name: Create storage folder
+  file:
+    path: /usr/lib/ckan/storage
+    state: directory
+    mode: '0777'
+    

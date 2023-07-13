@@ -1,0 +1,15 @@
+---
+- name: Install Redis service 
+  apt:
+    name: redis-server
+    state: present
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Run redis daemonize
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: '^daemonize no'
+    line: 'daemonize yes'
+    state: present
+  notify: start or restart redis-server

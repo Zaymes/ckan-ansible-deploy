@@ -1,0 +1,15 @@
+---
+- name: Setup uWSGI
+  include_role:
+    name: webserver
+    tasks_from: uwsgi.yml
+
+- name: Setup Supervisor
+  include_role:
+    name: webserver
+    tasks_from: supervisor.yml
+
+- name: Setup Nginx 
+  include_role:
+    name: webserver
+    tasks_from: nginx.yml
