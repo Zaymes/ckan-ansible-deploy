@@ -66,6 +66,9 @@ beaker.session.timeout = 600
 
 ## Database settings ###########################################################
 sqlalchemy.url = postgresql://{{ ckan_database.dbuser }}:{{ ckan_database.dbpassword }}@{{ ckan_database.dbhost }}/{{ ckan_database.dbname }}
+ckan.datastore.write_url = postgresql://{{ ckan_database.dbuser }}:{{ ckan_database.dbpassword }}@{{ ckan_database.dbhost }}/{{ ckan_datastore.datastoredb }}
+ckan.datastore.read_url = postgresql://{{ ckan_datastore.datastoreuser }}:{{ ckan_datastore.datastorepassword }}@{{ ckan_datastore.datastorehost }}/{{ ckan_datastore.datastoredb }}
+ckan.datastore.sqlsearch.enabled = true
 sqlalchemy.pool_pre_ping = true
 # sqlalchemy.<OPTION> = 
 
@@ -159,11 +162,11 @@ ckan.cors.origin_allow_all = false
 ckan.cors.origin_whitelist = 
 
 ## Plugins Settings ############################################################
-ckan.plugins = activity
+ckan.plugins = activity pdf_view datastore
 ckan.resource_proxy.timeout = 5
 
 ## Front-End Settings ##########################################################
-ckan.site_title = CKAN
+ckan.site_title = CKANy
 ckan.site_description = 
 ckan.site_intro_text = 
 ckan.site_logo = /base/images/ckan-logo.png

@@ -15,3 +15,7 @@
     name: ckan
     tasks_from: ckanconfig.yml
 
+- name : Install dependency ckan extensions
+  include_role:
+    name: ckan
+    tasks_from: installextension.yml

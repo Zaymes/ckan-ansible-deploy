@@ -1,0 +1,35 @@
+- name: Deploy CKAN server
+  hosts: ckan_servers
+  become: yes
+  gather_facts: yes
+
+  vars_prompt:
+    - name: "setup_local_database"
+      prompt: "Do you want to setup a local postgres database? (y/n)"
+      private: no
+      default: "n"
+      
+    - name: "setup_local_solr"
+      prompt: "Do you want to setup a local solr instance? (y/n)"
+      private: no
+      default: "n"
+
+    - name: "setup_local_redis"
+      prompt: "Do you want to setup a local redis instance? (y/n)"
+      private: no
+      default: "n"
+  
+  pre_tasks:
+    - name: Verify distribution
+      fail:
+        msg: "This current it only supports Ubuntu and Debian"
+      when: ansible_distribution not in ['Ubuntu', 'Debian']
+
+  roles:
+    - { role: common, tags: common }
+    - { role: database, tags: database, when: setup_local_database == "y" }
+    - { role: ckan, tags: ckan }
+    - { role: solr, tags: solr, when: setup_local_solr == "y" }
+    - { role: redis, tags: redis, when: setup_local_redis == "y" }
+    - { role: webserver, tags: webserver }
+

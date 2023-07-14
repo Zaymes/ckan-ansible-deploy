@@ -16,6 +16,9 @@
 - name: Initialize CKAN database
   command: /usr/lib/ckan/default/bin/ckan --config=/usr/lib/ckan/default/ckan.ini db init
 
+- name: setup permission to datastore database
+  shell: "/usr/lib/ckan/default/bin/ckan --config=/usr/lib/ckan/default/ckan.ini datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=1"
+
 - name: Create webassets storage folder
   file:
     path: /usr/lib/ckan/webassets
