@@ -1,16 +1,16 @@
 ---
 - name: Install required apt packages
   apt:
+    name:
+      - "git-core"
+      - "python3-dev"
+      - "python3-pip"
+      - "python3-venv"
+      - "python3-distutils"
+      - "libpq-dev"
+      - "libxml2-dev"
+      - "libxslt1-dev"
+      - "build-essential"
+      - "libmagic1"
     update_cache: yes
     force_apt_get: yes
-    name:
-      - 'git-core'
-      - 'python3-dev'
-      - 'python3-pip'
-      - 'python3-venv'
-      - 'python3-distutils'
-      - 'libpq-dev'
-      - 'libxml2-dev'
-      - 'libxslt1-dev'
-      - 'build-essential'
-      - 'libmagic1'
