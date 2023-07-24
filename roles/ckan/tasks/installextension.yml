@@ -2,4 +2,5 @@
   vars:
     virtualenv: /usr/lib/ckan/default
   shell: |
-    /usr/lib/ckan/default/bin/pip install -e git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview 
+    /usr/lib/ckan/default/bin/pip install -e git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview |
+    /usr/lib/ckan/default/bin/pip install -e git+https://github.com/okfnepal/ckanext-idms.git#egg=ckanext-idms
